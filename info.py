@@ -53,7 +53,7 @@ NO_RESULTS_MSG = is_enabled((environ.get("NO_RESULTS_MSG", '1')), False)
 SECONDDB_URI = environ.get('SECONDDB_URI', "mongodb+srv://gafobey331:JCOpVBArEU8rdbo6@cluster0.iqtnjjb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
 DATABASE_URI = environ.get('DATABASE_URI', "mongodb+srv://gequbupeojebace:WPGXgy0fSYP2KjfG@cluster0.q10anrp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
 DATABASE_NAME = environ.get('DATABASE_NAME', "dqrepo")
-COLLECTION_NAME = environ.get('COLLECTION_NAME', 'ipapcornbot')
+COLLECTION_NAME = environ.get('COLLECTION_NAME', 'ipapcornbot1original')
 
 # Others
 IS_VERIFY = is_enabled((environ.get('IS_VERIFY', '1')), False)
