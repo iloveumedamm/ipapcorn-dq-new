@@ -56,7 +56,7 @@ DATABASE_NAME = environ.get('DATABASE_NAME', "dqrepo")
 COLLECTION_NAME = environ.get('COLLECTION_NAME', 'ipapcornbot1original')
 
 # Others
-IS_VERIFY = is_enabled((environ.get('IS_VERIFY', '1')), False)
+IS_VERIFY = is_enabled((environ.get('IS_VERIFY', '0')), False)
 HOW_TO_VERIFY = environ.get('HOW_TO_VERIFY', "https://t.me/c/1845700490/3")
 VERIFY2_URL = environ.get('VERIFY2_URL', "publicearn.com")
 VERIFY2_API = environ.get('VERIFY2_API', "5472f1fe97bd48ca6e5c0731f8d780ac07499004")
