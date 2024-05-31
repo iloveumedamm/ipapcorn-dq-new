@@ -38,6 +38,26 @@ BUTTONS = {}
 SPELL_CHECK = {}
 req_channel=LOG_CHANNEL
 
+class ButtonMaker:
+    def __init__(self):
+        self.__button = []
+        self.__header_button = []
+        self.__first_body_button = []
+        self.__last_body_button = []
+        self.__footer_button = []
+
+    def ubutton(self, key, link, position=None):
+        if not position:
+            self.__button.append(InlineKeyboardButton(text=key, url=link))
+        elif position == 'header':
+            self.__header_button.append(InlineKeyboardButton(text=key, url=link))
+        elif position == 'f_body':
+            self.__first_body_button.append(InlineKeyboardButton(text=key, url=link))
+        elif position == 'l_body':
+            self.__last_body_button.append(InlineKeyboardButton(text=key, url=link))
+        elif position == 'footer':
+            self.__footer_button.append(InlineKeyboardButton(text=key, url=link))
+            
 
 @Client.on_message(filters.group | filters.private & filters.text & filters.incoming)
 async def give_filter(client, message):
