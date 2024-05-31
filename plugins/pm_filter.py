@@ -450,7 +450,7 @@ async def advantage_spoll_choker(bot, query):
                 reqstr1 = query.from_user.id if query.from_user else 0
                 reqstr = await bot.get_users(reqstr1)
                 req_channel=LOG_CHANNEL
-                user_id = reqstr.id
+                user_id = query.from_user.id
                 if NO_RESULTS_MSG:
                        await bot.send_message(req_channel,f"-🦋 #REQUESTED_CONTENT 🦋-\n\n📝**Content Name** :`{movie}`\n**Requested By**: {reqstr.mention}\n **USER ID**: {reqstr.id}\n\n🗃️",
                                                                                                        reply_markup=InlineKeyboardMarkup([
