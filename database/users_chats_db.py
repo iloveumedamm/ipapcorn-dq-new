@@ -11,12 +11,13 @@ class Database:
         self.db = self._client[database_name]
         self.col = self.db.users
         self.grp = self.db.groups
+        self.botcol = self.db["bot_id"]
         #secondary db
         self._client2 = motor.motor_asyncio.AsyncIOMotorClient(SECONDDB_URI)
         self.db2 = self._client2[database_name]
         self.col2 = self.db2.users
         self.grp2 = self.db2.groups
-
+        self.botcol2 = self.db2["bot_id"]
 
     def new_user(self, id, name):
         return dict(
