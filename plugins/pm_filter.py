@@ -18,7 +18,7 @@ from pyrogram import Client, filters, enums
 from pyrogram.errors import UserIsBlocked, MessageNotModified, PeerIdInvalid
 from utils import get_size, is_subscribed, get_poster, temp, get_settings, save_group_settings, get_shortlink, send_all, check_verification, get_token
 from database.users_chats_db import db
-from database.ia_filterdb import Media, Media2, get_file_details, get_search_results, get_bad_files, db as clientDB, db2 as clientDB2
+from database.ia_filterdb import Media, Media2, get_file_details, get_search_results, get_bad_files, db as clientDB, db2 as clientDB2, get_search_resultss
 from database.filters_mdb import (
     del_all,
     find_filter,
@@ -41,7 +41,7 @@ req_channel=LOG_CHANNEL
 @Client.on_message(filters.private & filters.text & filters.incoming)
 async def pm_search(client, message):
     bot_id = client.me.id
-    files, n_offset, total = await get_search_results(message.text)
+    files, n_offset, total = await get_search_resultss(message.text)
     btn = [[
         InlineKeyboardButton("🗂 ᴄʟɪᴄᴋ ʜᴇʀᴇ 🗂", url=FILMS_LINK)
     ]]

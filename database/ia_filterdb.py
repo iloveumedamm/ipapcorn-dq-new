@@ -8,7 +8,7 @@ from pymongo.errors import DuplicateKeyError
 from umongo import Instance, Document, fields
 from motor.motor_asyncio import AsyncIOMotorClient
 from marshmallow.exceptions import ValidationError
-from info import DATABASE_URI, DATABASE_NAME, COLLECTION_NAME, USE_CAPTION_FILTER, MAX_B_TN, SECONDDB_URI
+from info import DATABASE_URI, DATABASE_NAME, COLLECTION_NAME, USE_CAPTION_FILTER, MAX_B_TN, SECONDDB_URI, MAX_BTN
 from utils import get_settings, save_group_settings
 from sample_info import tempDict 
 
@@ -258,3 +258,42 @@ def unpack_new_file_id(new_file_id):
     )
     file_ref = encode_file_ref(decoded.file_reference)
     return file_id, file_ref
+
+async def get_search_resultss(query, max_results=MAX_BTN, offset=0, lang=None):
+    query = str(query) # to ensure the query is string to stripe.
+    query = query.strip()
+    if not query:
+        raw_pattern = '.'
+    elif ' ' not in query:
+        raw_pattern = r'(\b|[\.\+\-_])' + query + r'(\b|[\.\+\-_])'
+    else:
+        raw_pattern = query.replace(' ', r'.*[\s\.\+\-_]') 
+    try:
+        regex = re.compile(raw_pattern, flags=re.IGNORECASE)
+    except:
+        regex = query
+
+    filter = {'file_name': regex}
+    cursor = Media.find(filter)
+
+    # Sort by recent
+    cursor.sort('$natural', -1)
+
+    if lang:
+        lang_files = [file async for file in cursor if lang in file.file_name.lower()]
+        files = lang_files[offset:][:max_results]
+        total_results = len(lang_files)
+        next_offset = offset + max_results
+        if next_offset >= total_results:
+            next_offset = ''
+        return files, next_offset, total_results
+        
+    # Slice files according to offset and max results
+    cursor.skip(offset).limit(max_results)
+    # Get list of files
+    files = await cursor.to_list(length=max_results)
+    total_results = await Media.count_documents(filter)
+    next_offset = offset + max_results
+    if next_offset >= total_results:
+        next_offset = ''       
+    return files, next_offset, total_results
