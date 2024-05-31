@@ -39,9 +39,9 @@ SPELL_CHECK = {}
 req_channel=LOG_CHANNEL
             
 @Client.on_message(filters.private & filters.text & filters.incoming)
-async def pm_search(client, message):
+async def pm_search(bot, message):
     if IS_PM_SEARCH:
-        await auto_filter(client, message)
+        await auto_filter(bot, message)
     else:
         await message.reply_text("pm not available")
 
