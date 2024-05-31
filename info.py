@@ -90,7 +90,7 @@ PROTECT_CONTENT = is_enabled((environ.get('PROTECT_CONTENT', "False")), False)
 PUBLIC_FILE_STORE = is_enabled((environ.get('PUBLIC_FILE_STORE', "0")), True)
 FILMS_LINK = environ.get('FILMS_LINK', 'https://t.me/HA_Films_World')
 PM_FILE_DELETE_TIME = int(environ.get('PM_FILE_DELETE_TIME', '3600'))
-IS_PM_SEARCH = is_enabled('IS_PM_SEARCH', False)
+IS_PM_SEARCH = is_enabled('IS_PM_SEARCH', "True")
 MAX_BTN = int(environ.get('MAX_BTN', 10))
 
 LOG_STR = "Current Cusomized Configurations are:-\n"
