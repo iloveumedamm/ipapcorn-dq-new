@@ -1754,6 +1754,7 @@ async def auto_filter(client, msg, spoll=False):
     if not client.get_chat_member(msg.chat.id, msg.from_user.id).user.is_bot_started:
         msg.reply_text("started first?")
     else:
+        pass
         
     reqstr1 = msg.from_user.id if msg.from_user else 0
     reqstr = await client.get_users(reqstr1)
