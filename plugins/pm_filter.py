@@ -37,7 +37,7 @@ logger.setLevel(logging.ERROR)
 BUTTONS = {}
 SPELL_CHECK = {}
 req_channel=LOG_CHANNEL
-bot_name=JoneyTestBot
+
 
 @Client.on_message(filters.group | filters.private & filters.text & filters.incoming)
 async def give_filter(client, message):
@@ -436,7 +436,7 @@ async def check_botpm(query, button=None):
         if button is None:
             button = ButtonMaker()
         _msg = "<i>You didn't START the bot in PM (Private)</i>"
-        button.ubutton("Start Bot Now", f"https://t.me/{bot_name}?start=start", 'header')
+        button.ubutton("Start Bot Now", f"https://t.me/JoneyTestBot?start=start", 'header')
         return _msg, button
         
 @Client.on_callback_query(filters.regex(r"^spol"))
