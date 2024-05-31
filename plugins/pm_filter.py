@@ -12,7 +12,7 @@ from Script import script
 from database.connections_mdb import active_connection, all_connections, delete_connection, if_active, make_active, \
     make_inactive
 from info import ADMINS, AUTH_CHANNEL, AUTH_USERS, SUPPORT_CHAT_ID, CUSTOM_FILE_CAPTION, MSG_ALRT, PICS, GRP_LNK, CHNL_LNK, NOR_IMG, LOG_CHANNEL, SPELL_IMG, MAX_B_TN, \
-    NO_RESULTS_MSG, IS_VERIFY, HOW_TO_VERIFY, FILMS_LINK
+    NO_RESULTS_MSG, IS_VERIFY, HOW_TO_VERIFY, FILMS_LINK, IS_PM_SEARCH
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery, InputMediaPhoto
 from pyrogram import Client, filters, enums
 from pyrogram.errors import UserIsBlocked, MessageNotModified, PeerIdInvalid
@@ -40,22 +40,10 @@ req_channel=LOG_CHANNEL
             
 @Client.on_message(filters.private & filters.text & filters.incoming)
 async def pm_search(client, message):
-    bot_id = client.me.id
-    files, n_offset, total = await get_search_resultss(message.text)
-    btn = [[
-        InlineKeyboardButton("🗂 ᴄʟɪᴄᴋ ʜᴇʀᴇ 🗂", url=FILMS_LINK)
-    ]]
-    reply_markup=InlineKeyboardMarkup(btn)
-    if await db.get_pm_search_status(bot_id):
-        s = await message.reply(f"<b><i>⚠️ `{message.text}` searching...</i></b>")
-        if 'hindi' in message.text.lower() or 'tamil' in message.text.lower() or 'telugu' in message.text.lower() or 'malayalam' in message.text.lower() or 'kannada' in message.text.lower() or 'english' in message.text.lower() or 'gujarati' in message.text.lower(): 
-            return await auto_filter(client, message, s)
-        await auto_filter(client, message, s)
+    if IS_PM_SEARCH:
+        await auto_filter(client, message)
     else:
-        if int(total) != 0:
-            await message.reply_text(f'<b><i>🤗 ᴛᴏᴛᴀʟ <code>{total}</code> ʀᴇꜱᴜʟᴛꜱ ꜰᴏᴜɴᴅ ɪɴ ᴛʜɪꜱ ɢʀᴏᴜᴘ 👇</i></b>', reply_markup=reply_markup)
-        else:
-            await message.reply_text(f'<b><i>📢 ꜱᴇɴᴅ ᴍᴏᴠɪᴇ ᴏʀ ꜱᴇʀɪᴇꜱ ʀᴇǫᴜᴇꜱᴛ ʜᴇʀᴇ 👇</i></b>', reply_markup=reply_markup)
+        await message.reply_text("pm not available")
 
 @Client.on_message(filters.group & filters.text & filters.incoming)
 async def group_search(client, message):
