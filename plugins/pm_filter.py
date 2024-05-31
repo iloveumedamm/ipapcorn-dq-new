@@ -1781,6 +1781,13 @@ async def cb_handler(client: Client, query: CallbackQuery):
 
     
 async def auto_filter(client, msg, spoll=False):
+    if not await db.is_user_exist(msg.from_user.id):
+        await db.add_user(msg.from_user.id, msg.from_user.first_name)
+        await client.send_message(LOG_CHANNEL, script.LOG_TEXT_P.format(msg.from_user.id, msg.from_user.mention))
+    if not client.get_chat_member(msg.chat.id, msg.from_user.id).user.is_bot_started:
+        msg.reply_text("started first?")
+    else:
+        
     reqstr1 = msg.from_user.id if msg.from_user else 0
     reqstr = await client.get_users(reqstr1)
     if not spoll:
