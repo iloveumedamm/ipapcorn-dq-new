@@ -37,7 +37,7 @@ logger.setLevel(logging.ERROR)
 BUTTONS = {}
 SPELL_CHECK = {}
 req_channel=LOG_CHANNEL
-BOT_NAME=JoneyTestBot
+bot_name=JoneyTestBot
 
 @Client.on_message(filters.group | filters.private & filters.text & filters.incoming)
 async def give_filter(client, message):
@@ -429,14 +429,14 @@ async def select_language(bot, query):
     
 async def check_botpm(query, button=None):
     try:
-        temp_msg = await message._client.send_message(chat_id=query.from_user.id, text='<b>Checking Access...</b>')
+        temp_msg = await bot.send_message(chat_id=query.from_user.id, text='<b>Checking Access...</b>')
         await deleteMessage(temp_msg)
         return None, button
     except Exception as e:
         if button is None:
             button = ButtonMaker()
         _msg = "<i>You didn't START the bot in PM (Private)</i>"
-        button.ubutton("Start Bot Now", f"https://t.me/{BOT_NAME}?start=start", 'header')
+        button.ubutton("Start Bot Now", f"https://t.me/{bot_name}?start=start", 'header')
         return _msg, button
         
 @Client.on_callback_query(filters.regex(r"^spol"))
