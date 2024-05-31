@@ -480,7 +480,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         await query.answer("Pʀᴏᴄᴇss Cᴀɴᴄᴇʟʟᴇᴅ !")
         return
     elif data.startswith("notify_user_not_avail"):
-        _, user_id, movie = data.split(":")
+        _, reqstr.id, movie = data.split(":")
         # Send message to user
         try:
             btn = [[
@@ -508,7 +508,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             return
         
     elif data.startswith("notify_user_alrupl"):
-        _, user_id, movie = data.split(":")
+        _, reqstr.id, movie = data.split(":")
         # Send message to user
         try:
             btn = [[
@@ -535,7 +535,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             return
         
     elif data.startswith("notify_userupl"):
-        _, user_id, movie = data.split(":")
+        _, reqstr.id, movie = data.split(":")
         # Send message to user
         try:
             btn = [[
@@ -563,7 +563,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             return
         
     elif data.startswith("notify_user_req_rejected"):
-        _, user_id, movie = data.split(":")
+        _, reqstr.id, movie = data.split(":")
         # Send message to user
         try:
             btn = [[
@@ -590,7 +590,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             return
         
     elif data.startswith("notify_user_spelling_error"):
-        _, user_id, movie = data.split(":")
+        _, reqstr.id, movie = data.split(":")
         # Send message to user
         try:
             btn = [[
@@ -617,7 +617,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             await query.answer(f"☣something went wrong sweetie\n\n{e}", show_alert=True)
             return
     elif data.startswith("notify_user_custom"):
-        _, user_id, movie = data.split(":")
+        _, reqstr.id, movie = data.split(":")
         # Send message to user
         try:
             btn = [[
@@ -644,7 +644,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             return
     
     elif data.startswith("notify_user_req_rcvd"):
-        _, user_id, movie = data.split(":")
+        _, reqstr.id, movie = data.split(":")
         # Send message to user
         try:
             btn = [[
