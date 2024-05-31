@@ -1801,7 +1801,7 @@ async def auto_filter(client, msg, spoll=False):
         else:
             return
     else:
-        message = msg.message.reply_to_message  # msg will be callback query
+        message = msg.reply_to_message  # msg will be callback query
         search, files, offset, total_results = spoll
         settings = await get_settings(message.chat.id)
     temp.SEND_ALL_TEMP[message.from_user.id] = files
