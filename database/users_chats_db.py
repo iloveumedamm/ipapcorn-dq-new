@@ -1,7 +1,7 @@
 # https://github.com/odysseusmax/animated-lamp/blob/master/bot/database/database.py
 import motor.motor_asyncio
 from sample_info import tempDict
-from info import DATABASE_NAME, DATABASE_URI, IMDB, IMDB_TEMPLATE, MELCOW_NEW_USERS, P_TTI_SHOW_OFF, SINGLE_BUTTON, SPELL_CHECK_REPLY, PROTECT_CONTENT, AUTO_DELETE, MAX_BTN, AUTO_FFILTER, SHORTLINK_API, SHORTLINK_URL, IS_SHORTLINK, SECONDDB_URI
+from info import DATABASE_NAME, DATABASE_URI, IMDB, IMDB_TEMPLATE, MELCOW_NEW_USERS, P_TTI_SHOW_OFF, SINGLE_BUTTON, SPELL_CHECK_REPLY, PROTECT_CONTENT, AUTO_DELETE, MAX_BTN, AUTO_FFILTER, SHORTLINK_API, SHORTLINK_URL, IS_SHORTLINK, SECONDDB_URI, IS_PM_SEARCH
 
 class Database:
     
@@ -220,5 +220,19 @@ class Database:
 
     async def get_all_chats(self):
         return ((await (self.grp.find({})).to_list(length=None))+(await (self.grp2.find({})).to_list(length=None)))
+    
+    async def get_pm_search_status(self, bot_id):
+        bot = await self.botcol.find_one({'id': bot_id})
+        if bot and bot.get('bot_pm_search'):
+            return bot['bot_pm_search']
+        else:
+            return IS_PM_SEARCH
+        
+    async def update_pm_search_status(self, bot_id, enable):
+        bot = await self.botcol.find_one({'id': int(bot_id)})
+        if bot:
+            await self.botcol.update_one({'id': int(bot_id)}, {'$set': {'bot_pm_search': enable}})
+        else:
+            await self.botcol.insert_one({'id': int(bot_id), 'bot_pm_search': enable})
 
 db = Database(DATABASE_NAME)
