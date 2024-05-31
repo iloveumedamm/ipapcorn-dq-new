@@ -37,26 +37,6 @@ logger.setLevel(logging.ERROR)
 BUTTONS = {}
 SPELL_CHECK = {}
 req_channel=LOG_CHANNEL
-
-class ButtonMaker:
-    def __init__(self):
-        self.__button = []
-        self.__header_button = []
-        self.__first_body_button = []
-        self.__last_body_button = []
-        self.__footer_button = []
-
-    def ubutton(self, key, link, position=None):
-        if not position:
-            self.__button.append(InlineKeyboardButton(text=key, url=link))
-        elif position == 'header':
-            self.__header_button.append(InlineKeyboardButton(text=key, url=link))
-        elif position == 'f_body':
-            self.__first_body_button.append(InlineKeyboardButton(text=key, url=link))
-        elif position == 'l_body':
-            self.__last_body_button.append(InlineKeyboardButton(text=key, url=link))
-        elif position == 'footer':
-            self.__footer_button.append(InlineKeyboardButton(text=key, url=link))
             
 
 @Client.on_message(filters.group | filters.private & filters.text & filters.incoming)
@@ -446,18 +426,6 @@ async def select_language(bot, query):
     except MessageNotModified:
         pass
     await query.answer()
-    
-async def check_botpm(query, button=None):
-    try:
-        temp_msg = await bot.send_message(chat_id=query.from_user.id, text='<b>Checking Access...</b>')
-        await deleteMessage(temp_msg)
-        return None, button
-    except Exception as e:
-        if button is None:
-            button = ButtonMaker()
-        _msg = "<i>You didn't START the bot in PM (Private)</i>"
-        button.ubutton("Start Bot Now", f"https://t.me/JoneyTestBot?start=start", 'header')
-        return _msg, button
         
 @Client.on_callback_query(filters.regex(r"^spol"))
 async def advantage_spoll_choker(bot, query):
@@ -494,8 +462,7 @@ async def advantage_spoll_choker(bot, query):
                                                                                                                                         [InlineKeyboardButton("❌Reject Req", callback_data=f"notify_user_req_rejected:{user_id}:{movie}")]
                                                                                                            ])
                                              )
-                l = await check_botpm(query)
-                return 
+                
                  
               
                 k = await query.message.edit(script.MVE_NT_FND)
