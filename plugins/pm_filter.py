@@ -37,6 +37,7 @@ logger.setLevel(logging.ERROR)
 BUTTONS = {}
 SPELL_CHECK = {}
 req_channel=LOG_CHANNEL
+BOT_NAME=JoneyTestBot
 
 @Client.on_message(filters.group | filters.private & filters.text & filters.incoming)
 async def give_filter(client, message):
@@ -425,7 +426,19 @@ async def select_language(bot, query):
     except MessageNotModified:
         pass
     await query.answer()
-
+    
+async def check_botpm(query, button=None):
+    try:
+        temp_msg = await message._client.send_message(chat_id=query.from_user.id, text='<b>Checking Access...</b>')
+        await deleteMessage(temp_msg)
+        return None, button
+    except Exception as e:
+        if button is None:
+            button = ButtonMaker()
+        _msg = "<i>You didn't START the bot in PM (Private)</i>"
+        button.ubutton("Start Bot Now", f"https://t.me/{BOT_NAME}?start=start", 'header')
+        return _msg, button
+        
 @Client.on_callback_query(filters.regex(r"^spol"))
 async def advantage_spoll_choker(bot, query):
     _, user, movie_ = query.data.split('#')
@@ -461,6 +474,10 @@ async def advantage_spoll_choker(bot, query):
                                                                                                                                         [InlineKeyboardButton("❌Reject Req", callback_data=f"notify_user_req_rejected:{user_id}:{movie}")]
                                                                                                            ])
                                              )
+                l = await check_botpm(query)
+                return 
+                 
+              
                 k = await query.message.edit(script.MVE_NT_FND)
                 await asyncio.sleep(10)
                 await k.delete()
