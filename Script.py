@@ -202,17 +202,8 @@ Nᴀᴍᴇ - {}"""
 𝗠𝗲𝘀𝘀𝗮𝗴𝗲 <b>: {}</b>"""
 
     CAPTION = """
-<b>📂 Fɪʟᴇ ɴᴀᴍᴇ : </b> <code>{file_name}</code>
-
-<b>
-╭─────── • ◆ • ───────╮
-🔅 Dᴀʀᴋ Mᴏᴅᴇ :  <a href="https://t.me/addtheme/DQ_The_File_Donor_Theme">Tᴏᴜᴄʜ</a>
-╰─────── • ◆ • ───────╯
-
-=========== • ✠ • ===========
-▫️ ᴄʜᴀɴɴᴇʟ : @DQ_The_File_Donor_Bot_Updates
-▫️ sᴜᴘᴘᴏʀᴛ ɢʀᴏᴜᴘ : @DQ_The_File_Donor_Support
-=========== • ✠ • ===========</b>"""
+<blockquote>📂 Fɪʟᴇ ɴᴀᴍᴇ : </b> <code>{file_name}</code></blockquote>
+"""
 
     IMDB_TEMPLATE_TXT = """
 <b>Query: {query}
